@@ -20,21 +20,18 @@ def parse_homework_status(homework):
                              'можно приступать к следующему уроку.'),
                 'rejected': 'К сожалению в работе нашлись ошибки.'}
 
-    '''Проверяем, что ключи homework_name и homework_status есть в словаре.
-    А если их нет, то пишем это в лог. Не совсем понял, что значит
-    "прислали чего то не то" в замечаниях. Зачем нужно проверять что-то нето,
-    если нужны конкретные ключи?'''
-
-    if 'homework_name' in homework or 'homework_status' in homework:
-        homework_name = homework['homework_name']
-        homework_status = homework['status']
-    else:
-        logging.error('Одного из нужных ключей нет ы словаре')
+    homework_name = homework.get('homework_name')
+    homework_status = homework.get('status')
+    if homework_name is None:
+        logging.error('Работы нет в проверке')
+        return 'Работы нет в проверке'
     if homework_status in statuses:
         return (f'У вас проверили работу '
                 f'"{homework_name}"!\n\n{statuses[homework_status]}')
     else:
         logging.error('Статуса работы нет в списке.')
+        return ('Полученный статус работы не совпадает'
+                'ни с одним из известных статусов.')
 
 
 def get_homework_statuses(current_timestamp):
@@ -44,10 +41,9 @@ def get_homework_statuses(current_timestamp):
         homework_statuses = requests.get(
             YANDEX_API,
             params=params, headers=headers)
-        return homework_statuses.json()
     except requests.exceptions.RequestException as e:
         logging.error(f'Бот столкнулся с ошибкой: {e}')
-        return None
+    return homework_statuses.json()
 
 
 def send_message(message, bot_client):
@@ -57,7 +53,7 @@ def send_message(message, bot_client):
 def main():
     bot = telegram.Bot(token=TELEGRAM_TOKEN)
     logging.basicConfig(level=logging.DEBUG)
-    logging.debug('TrickyAbbot запущен!')
+    logging.debug('TrickyAbbot запущен!!')
     current_timestamp = int(time.time())
 
     while True:
