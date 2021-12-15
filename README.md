@@ -50,4 +50,4 @@ pip install -r requirements.txt
 
 ## Контакты
 Артем Кутараев – [@artem_kutaraev](https://t.me/artem_kutaraev) – artem.kutaraev@gmail.com  
-Ссылка на проект – [https://github.com/Kutaraev/Telegram-bot-assistant.git](https://github.com/Kutaraev/Cash-n-Calory-Calculator.git)  
+Ссылка на проект – [https://github.com/Kutaraev/Telegram-bot-assistant.git](https://github.com/Kutaraev/Telegram-bot-assistant.git)  
