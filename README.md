@@ -25,7 +25,11 @@ git clone https://github.com/Kutaraev/Telegram-bot-assistant.git
 ```
 python -m venv venv
 ```
-3. Установить необходимые пакеты для работы приложения из файла зависимостей
+3. Активировать виртуальное окружение
+```
+source venv/scripts/activate
+```
+4. Установить необходимые пакеты для работы приложения из файла зависимостей
 ```
 pip install -r requirements.txt
 ```
